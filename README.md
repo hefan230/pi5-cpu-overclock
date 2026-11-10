@@ -93,6 +93,8 @@ Choose `2` for English or `1` for Simplified Chinese (the default). In the main 
 
 ### Menu
 
+![Raspberry Pi 5 CPU overclock menu](./menu.png)
+
 | Option | Action |
 | --- | --- |
 | `1` | **2.4 GHz** preset |
@@ -109,6 +111,8 @@ Choose `2` for English or `1` for Simplified Chinese (the default). In the main 
 Each confirmation accepts a single `y` or `Y`. Press Enter or enter anything else to cancel. Custom targets use GHz. For example, entering `2.625` writes `arm_freq=2625`. Changes apply after reboot, and actual CPU frequency varies with load, temperature, and firmware behavior.
 
 ### Stress-test safeguards
+
+![Live stress-test monitor showing CPU frequency, temperature, and PMIC readings](./stress-testing.png)
 
 A stress test stops at 80 °C, on a temperature read failure, or when the measured 5 V input drops below 4.8 V. The voltage cutoff requires a valid PMIC reading. Reported PMIC power estimates cover the measured rails.
 
@@ -220,6 +224,8 @@ fi && sudo bash /root/pi5-cpu-overclock.sh
 
 ### 菜单
 
+![树莓派 5 CPU 超频菜单](./menu.png)
+
 | 选项 | 操作 |
 | --- | --- |
 | `1` | **2.4 GHz** 预设 |
@@ -236,6 +242,8 @@ fi && sudo bash /root/pi5-cpu-overclock.sh
 每次确认均接受单字母 `y` 或 `Y`，直接回车或输入其他内容会取消。自定义频率以 GHz 输入，例如 `2.625`，对应写入 `arm_freq=2625`。配置重启后生效，实际频率会随负载、温度和固件策略变化。
 
 ### 压测保护
+
+![压力测试实时监控，显示 CPU 频率、温度和 PMIC 读数](./stress-testing.png)
 
 压测时，CPU 温度达到 80 °C、无法读取温度，或测得 5 V 输入低于 4.8 V，脚本会停止测试。输入电压保护依赖有效的 PMIC 读数。PMIC 功率为所测供电轨的估算值。
 
