@@ -35,16 +35,17 @@ sudo apt install stress-ng
 
 Choose either method to get the script from the [latest GitHub release](https://github.com/hefan230/pi5-cpu-overclock/releases/latest). If you already have the script file, start at step 2 of Option B.
 
+Both methods install the script at `/root/pi5-cpu-overclock.sh` and require `sudo`.
+
 **Option A · Download from GitHub and run**
 
 Paste the entire block into the Pi terminal. It finds the latest release automatically, checks the downloaded script's Bash syntax, and runs it. If `curl` is missing, run `sudo apt install curl` first.
 
 ```bash
-(
+sudo bash -c "$(cat <<'INSTALLER'
   set -e
   repo=hefan230/pi5-cpu-overclock
-  mkdir -p ~/pi5-cpu-overclock
-  cd ~/pi5-cpu-overclock
+  cd /root
 
   download=$(mktemp .pi5-cpu-overclock.XXXXXX)
   trap 'rm -f -- "$download"' EXIT
@@ -66,18 +67,20 @@ Paste the entire block into the Pi terminal. It finds the latest release automat
   test -s "$download"
   bash -n "$download"
   mv -fT -- "$download" pi5-cpu-overclock.sh
-  sudo bash ./pi5-cpu-overclock.sh
-)
+  bash /root/pi5-cpu-overclock.sh
+INSTALLER
+)"
 ```
 
 **Option B · Save the script manually and run it**
 
 1. Open the latest GitHub release and download **pi5-cpu-overclock.sh** from the release notes or the **Assets** section.
-2. Put the file in your home directory (`~`) on the Pi, then run these commands in the Pi terminal.
+2. Put the downloaded file in your home directory (`~`) on the Pi, then run these commands to install and start it.
 
 ```bash
-cd ~
-sudo bash ./pi5-cpu-overclock.sh
+if [[ ! ~/pi5-cpu-overclock.sh -ef /root/pi5-cpu-overclock.sh ]]; then
+  sudo install -m 0600 -- ~/pi5-cpu-overclock.sh /root/pi5-cpu-overclock.sh
+fi && sudo bash /root/pi5-cpu-overclock.sh
 ```
 
 Choose `2` for English or `1` for Simplified Chinese (the default). In the main menu, choose `5` to view CPU frequency and temperature or `6` to set up a stress test.
@@ -153,16 +156,17 @@ sudo apt install stress-ng
 
 以下两种方式任选一种，均从 [GitHub 最新发布](https://github.com/hefan230/pi5-cpu-overclock/releases/latest) 获取脚本。如果手头已有脚本文件，直接从方式 B 的第 2 步开始。
 
+两种方式均使用 `sudo`，默认安装到 `/root/pi5-cpu-overclock.sh`。
+
 **方式 A · 从 GitHub 下载并运行**
 
 把下面整段命令复制到树莓派终端。命令会自动找到最新发布，下载脚本并检查 Bash 语法，检查通过后启动脚本。如果系统缺少 `curl`，先执行 `sudo apt install curl`。
 
 ```bash
-(
+sudo bash -c "$(cat <<'INSTALLER'
   set -e
   repo=hefan230/pi5-cpu-overclock
-  mkdir -p ~/pi5-cpu-overclock
-  cd ~/pi5-cpu-overclock
+  cd /root
 
   download=$(mktemp .pi5-cpu-overclock.XXXXXX)
   trap 'rm -f -- "$download"' EXIT
@@ -184,18 +188,20 @@ sudo apt install stress-ng
   test -s "$download"
   bash -n "$download"
   mv -fT -- "$download" pi5-cpu-overclock.sh
-  sudo bash ./pi5-cpu-overclock.sh
-)
+  bash /root/pi5-cpu-overclock.sh
+INSTALLER
+)"
 ```
 
 **方式 B · 手动保存后运行**
 
 1. 打开 GitHub 最新发布，从发布说明或 **Assets** 区域下载 **pi5-cpu-overclock.sh**。
-2. 将文件放到树莓派当前登录用户的主目录（`~`），然后在树莓派终端运行下面的命令。
+2. 将下载的文件放到树莓派当前登录用户的主目录（`~`），然后在终端运行下面的命令安装并启动。
 
 ```bash
-cd ~
-sudo bash ./pi5-cpu-overclock.sh
+if [[ ! ~/pi5-cpu-overclock.sh -ef /root/pi5-cpu-overclock.sh ]]; then
+  sudo install -m 0600 -- ~/pi5-cpu-overclock.sh /root/pi5-cpu-overclock.sh
+fi && sudo bash /root/pi5-cpu-overclock.sh
 ```
 
 启动时按 `1` 选简体中文（默认），按 `2` 选 English。进入主菜单后可按 `5` 查看 CPU 频率和温度，或按 `6` 开始设置压力测试。
