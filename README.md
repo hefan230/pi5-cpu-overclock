@@ -124,4 +124,4 @@ bash test-pi5-cpu-overclock.sh
 
 ## 许可证 / License
 
-.
+GPL-3.0
