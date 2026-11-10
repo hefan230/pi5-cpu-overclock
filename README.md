@@ -1,13 +1,12 @@
 # Raspberry Pi 5 CPU Overclock
 A CPU overclocking and stress testing script for Raspberry Pi 5
-
 [简体中文](#简体中文) · [English](#english)
 
 ## 简体中文
 
 树莓派 5 的交互式 CPU 超频和压力测试工具。脚本启动时可选简体中文或英文，支持设置 CPU 目标频率、查看实时状态、运行压测和移除超频设置。
 
-**超频可能导致无法启动、系统崩溃或数据损坏。** 请先备份重要数据，准备好散热，再逐档测试。2.85 GHz 和 2.9 GHz 为实验档，需要额外输入目标频率确认。压测通过也只能说明设备在本次测试条件下完成了测试。
+**超频可能导致无法启动、系统崩溃或数据损坏。** 请先备份重要数据，再逐档测试。CPU 运行在 **2 GHz 及以上**时，建议配备散热片或外置风扇。2.85 GHz 和 2.9 GHz 为实验档，需要额外输入目标频率确认。压测通过也只能说明设备在本次测试条件下完成了测试。
 
 ### 运行环境
 
@@ -67,7 +66,7 @@ bash test-pi5-cpu-overclock.sh
 
 An interactive CPU overclocking and stress-test tool for Raspberry Pi 5. Choose Simplified Chinese or English at startup, then set a CPU frequency target, inspect live readings, run a stress test, or roll back the managed settings.
 
-**Overclocking can cause boot failures, crashes, or data loss.** Back up important data, provide adequate cooling, and test one step at a time. The 2.85 and 2.9 GHz experimental presets require you to type the target frequency for confirmation. A completed stress test reflects the conditions of that run.
+**Overclocking can cause boot failures, crashes, or data loss.** Back up important data and test one step at a time. Use a heatsink or an external fan when running the CPU at **2 GHz or higher**. The 2.85 and 2.9 GHz experimental presets require you to type the target frequency for confirmation. A completed stress test reflects the conditions of that run.
 
 ### Requirements
 
@@ -122,3 +121,7 @@ The script manages `arm_freq` in a dedicated block in `/boot/firmware/config.txt
 bash -n pi5-cpu-overclock.sh
 bash test-pi5-cpu-overclock.sh
 ```
+
+## 许可证 / License
+
+待定 / Pending.
