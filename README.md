@@ -33,25 +33,46 @@ sudo apt install stress-ng
 
 #### 2. Get and run the script
 
-Choose either method. When downloading from [GitHub Releases](https://github.com/hefan230/pi5-cpu-overclock/releases), select a tag that contains the menu described here. `v1.0` has the older menu. If you already have the updated script file, start at step 2 of Option B.
+Choose either method to get the script from the [latest GitHub release](https://github.com/hefan230/pi5-cpu-overclock/releases/latest). If you already have the script file, start at step 2 of Option B.
 
 **Option A · Download from GitHub and run**
 
-Paste the entire block into the Pi terminal and enter the release tag when prompted. The script starts after the download succeeds. If `curl` is missing, run `sudo apt install curl` first.
+Paste the entire block into the Pi terminal. It finds the latest release automatically, checks the downloaded script's Bash syntax, and runs it. If `curl` is missing, run `sudo apt install curl` first.
 
 ```bash
-read -r -p 'pi5-cpu-overclock' release_tag &&
-  [ -n "$release_tag" ] &&
-  mkdir -p ~/pi5-cpu-overclock &&
-  cd ~/pi5-cpu-overclock &&
-  curl --fail --location --output pi5-cpu-overclock.sh \
-    "https://raw.githubusercontent.com/hefan230/pi5-cpu-overclock/${release_tag}/pi5-cpu-overclock.sh" &&
+(
+  set -e
+  repo=hefan230/pi5-cpu-overclock
+  mkdir -p ~/pi5-cpu-overclock
+  cd ~/pi5-cpu-overclock
+
+  download=$(mktemp .pi5-cpu-overclock.XXXXXX)
+  trap 'rm -f -- "$download"' EXIT
+
+  if ! curl --proto '=https' -fsL -o "$download" \
+    "https://github.com/$repo/releases/latest/download/pi5-cpu-overclock.sh"; then
+    release=$(curl --proto '=https' -fsSL "https://api.github.com/repos/$repo/releases/latest")
+    url=$(awk 'match($0, /https:\/\/github\.com\/user-attachments\/files\/[0-9]+\/pi5-cpu-overclock\.sh/) {
+      print substr($0, RSTART, RLENGTH)
+      exit
+    }' <<< "$release")
+    if [ -z "$url" ]; then
+      printf '%s\n' 'The latest release has no pi5-cpu-overclock.sh download.' >&2
+      exit 1
+    fi
+    curl --proto '=https' -fsSL -o "$download" "$url"
+  fi
+
+  test -s "$download"
+  bash -n "$download"
+  mv -fT -- "$download" pi5-cpu-overclock.sh
   sudo bash ./pi5-cpu-overclock.sh
+)
 ```
 
 **Option B · Save the script manually and run it**
 
-1. Open the matching GitHub release, download **Source code (zip)**, and extract `pi5-cpu-overclock.sh`. You can also open the main script's **Raw** view at that tag and save it under the same name.
+1. Open the latest GitHub release and download **pi5-cpu-overclock.sh** from the release notes or the **Assets** section.
 2. Put the file in your home directory (`~`) on the Pi, then run these commands in the Pi terminal.
 
 ```bash
@@ -130,25 +151,46 @@ sudo apt install stress-ng
 
 #### 2. 获取并运行脚本
 
-以下两种方式任选一种。通过 [GitHub Releases](https://github.com/hefan230/pi5-cpu-overclock/releases) 获取脚本时，请选择包含本版菜单的发布标签。`v1.0` 对应旧版菜单。如果手头已有新版脚本，直接从方式 B 的第 2 步开始。
+以下两种方式任选一种，均从 [GitHub 最新发布](https://github.com/hefan230/pi5-cpu-overclock/releases/latest) 获取脚本。如果手头已有脚本文件，直接从方式 B 的第 2 步开始。
 
 **方式 A · 从 GitHub 下载并运行**
 
-把下面整段命令复制到树莓派终端，按提示输入发布标签。下载成功后会自动运行脚本。如果系统缺少 `curl`，先执行 `sudo apt install curl`。
+把下面整段命令复制到树莓派终端。命令会自动找到最新发布，下载脚本并检查 Bash 语法，检查通过后启动脚本。如果系统缺少 `curl`，先执行 `sudo apt install curl`。
 
 ```bash
-read -r -p 'pi5-cpu-overclock' release_tag &&
-  [ -n "$release_tag" ] &&
-  mkdir -p ~/pi5-cpu-overclock &&
-  cd ~/pi5-cpu-overclock &&
-  curl --fail --location --output pi5-cpu-overclock.sh \
-    "https://raw.githubusercontent.com/hefan230/pi5-cpu-overclock/${release_tag}/pi5-cpu-overclock.sh" &&
+(
+  set -e
+  repo=hefan230/pi5-cpu-overclock
+  mkdir -p ~/pi5-cpu-overclock
+  cd ~/pi5-cpu-overclock
+
+  download=$(mktemp .pi5-cpu-overclock.XXXXXX)
+  trap 'rm -f -- "$download"' EXIT
+
+  if ! curl --proto '=https' -fsL -o "$download" \
+    "https://github.com/$repo/releases/latest/download/pi5-cpu-overclock.sh"; then
+    release=$(curl --proto '=https' -fsSL "https://api.github.com/repos/$repo/releases/latest")
+    url=$(awk 'match($0, /https:\/\/github\.com\/user-attachments\/files\/[0-9]+\/pi5-cpu-overclock\.sh/) {
+      print substr($0, RSTART, RLENGTH)
+      exit
+    }' <<< "$release")
+    if [ -z "$url" ]; then
+      printf '%s\n' 'The latest release has no pi5-cpu-overclock.sh download.' >&2
+      exit 1
+    fi
+    curl --proto '=https' -fsSL -o "$download" "$url"
+  fi
+
+  test -s "$download"
+  bash -n "$download"
+  mv -fT -- "$download" pi5-cpu-overclock.sh
   sudo bash ./pi5-cpu-overclock.sh
+)
 ```
 
 **方式 B · 手动保存后运行**
 
-1. 在 GitHub Releases 打开对应发布版，下载 **Source code (zip)**，解压后取出 `pi5-cpu-overclock.sh`。也可以打开该标签下主脚本的 **Raw** 页面，将原文保存为同名文件。
+1. 打开 GitHub 最新发布，从发布说明或 **Assets** 区域下载 **pi5-cpu-overclock.sh**。
 2. 将文件放到树莓派当前登录用户的主目录（`~`），然后在树莓派终端运行下面的命令。
 
 ```bash
@@ -199,8 +241,5 @@ bash test-pi5-cpu-overclock.sh
 ```
 
 ## 许可证 / License
-
-待定 / Pending.
-
 
 GPL-3.0
