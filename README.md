@@ -1,7 +1,5 @@
-# pi5-cpu-overclock
-A CPU overclocking and stress testing script for Raspberry Pi 5
-
 # Raspberry Pi 5 CPU Overclock
+A CPU overclocking and stress testing script for Raspberry Pi 5
 
 [简体中文](#简体中文) · [English](#english)
 
