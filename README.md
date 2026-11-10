@@ -24,11 +24,11 @@ An interactive CPU overclocking and stress-test tool for Raspberry Pi 5. Choose 
 
 Run these commands in a terminal or SSH session on the Pi.
 
-#### 1. Install the stress-test dependency
+#### 1. Install dependencies
 
 ```bash
 sudo apt update
-sudo apt install stress-ng
+sudo apt install stress-ng curl
 ```
 
 #### 2. Get and run the script
@@ -39,7 +39,7 @@ Both methods install the script at `/root/pi5-cpu-overclock.sh` and require `sud
 
 **Option A · Download from GitHub and run**
 
-Paste the entire block into the Pi terminal. It finds the latest release automatically, checks the downloaded script's Bash syntax, and runs it. If `curl` is missing, run `sudo apt install curl` first.
+Paste the entire block into the Pi terminal. It finds the latest release automatically, checks the downloaded script's Bash syntax, and runs it.
 
 ```bash
 sudo bash -c "$(cat <<'INSTALLER'
@@ -70,6 +70,12 @@ sudo bash -c "$(cat <<'INSTALLER'
   bash /root/pi5-cpu-overclock.sh
 INSTALLER
 )"
+```
+
+To reopen the installed script later, run this command.
+
+```bash
+sudo bash /root/pi5-cpu-overclock.sh
 ```
 
 **Option B · Save the script manually and run it**
@@ -145,11 +151,11 @@ bash test-pi5-cpu-overclock.sh
 
 在树莓派的终端或 SSH 会话中执行以下命令。
 
-#### 1. 安装压力测试依赖
+#### 1. 安装依赖
 
 ```bash
 sudo apt update
-sudo apt install stress-ng
+sudo apt install stress-ng curl
 ```
 
 #### 2. 获取并运行脚本
@@ -160,7 +166,7 @@ sudo apt install stress-ng
 
 **方式 A · 从 GitHub 下载并运行**
 
-把下面整段命令复制到树莓派终端。命令会自动找到最新发布，下载脚本并检查 Bash 语法，检查通过后启动脚本。如果系统缺少 `curl`，先执行 `sudo apt install curl`。
+把下面整段命令复制到树莓派终端。命令会自动找到最新发布，下载脚本并检查 Bash 语法，检查通过后启动脚本。
 
 ```bash
 sudo bash -c "$(cat <<'INSTALLER'
@@ -191,6 +197,12 @@ sudo bash -c "$(cat <<'INSTALLER'
   bash /root/pi5-cpu-overclock.sh
 INSTALLER
 )"
+```
+
+退出脚本后，可以用下面的命令重新进入。
+
+```bash
+sudo bash /root/pi5-cpu-overclock.sh
 ```
 
 **方式 B · 手动保存后运行**
