@@ -13,7 +13,7 @@ A CPU overclocking and stress testing script for Raspberry Pi 5
 
 ### 运行环境
 
-- 树莓派 5，运行 Raspberry Pi OS（Bookworm 或更新版本）或 Ubuntu 24.04 LTS ARM64。
+- 兼容性测试仅覆盖树莓派 5 上的 Ubuntu 24.04 LTS ARM64 和 Raspberry Pi OS。
 - Bash 5+，使用 `sudo` 运行。启动分区须挂载到 `/boot/firmware`，且 `config.txt` 可读写。
 - 压力测试需要 `stress-ng`。读取 PMIC 功率和输入电压需要 `vcgencmd` 返回有效的 ADC 数据。
 
@@ -65,8 +65,6 @@ bash -n pi5-cpu-overclock.sh
 bash test-pi5-cpu-overclock.sh
 ```
 
-目前已完成 Bash 语法检查和模拟回归测试。重启后的频率与 PMIC 读数仍待树莓派 5 真机验证。
-
 ## English
 
 An interactive CPU overclocking and stress-test tool for Raspberry Pi 5. Choose Simplified Chinese or English at startup, then set a CPU frequency target, inspect live readings, run a stress test, or roll back the managed settings.
@@ -75,7 +73,7 @@ An interactive CPU overclocking and stress-test tool for Raspberry Pi 5. Choose 
 
 ### Requirements
 
-- Raspberry Pi 5 running Raspberry Pi OS (Bookworm or later) or Ubuntu 24.04 LTS ARM64.
+- Compatibility testing covers Raspberry Pi 5 only, running Ubuntu 24.04 LTS ARM64 or Raspberry Pi OS.
 - Bash 5+ and `sudo` access. The boot partition must be mounted at `/boot/firmware` with a readable and writable `config.txt`.
 - Stress testing requires `stress-ng`. PMIC power and input-voltage readings require valid ADC data from `vcgencmd`.
 
@@ -126,5 +124,3 @@ The script manages `arm_freq` in a dedicated block in `/boot/firmware/config.txt
 bash -n pi5-cpu-overclock.sh
 bash test-pi5-cpu-overclock.sh
 ```
-
-Bash syntax checks and simulated regression tests have passed. Clock settings after reboot and PMIC readings still need verification on Raspberry Pi 5 hardware.
