@@ -40,7 +40,7 @@ Choose either method. When downloading from [GitHub Releases](https://github.com
 Paste the entire block into the Pi terminal and enter the release tag when prompted. The script starts after the download succeeds. If `curl` is missing, run `sudo apt install curl` first.
 
 ```bash
-read -r -p 'Enter the updated release tag: ' release_tag &&
+read -r -p 'pi5-cpu-overclock' release_tag &&
   [ -n "$release_tag" ] &&
   mkdir -p ~/pi5-cpu-overclock &&
   cd ~/pi5-cpu-overclock &&
@@ -137,7 +137,7 @@ sudo apt install stress-ng
 把下面整段命令复制到树莓派终端，按提示输入发布标签。下载成功后会自动运行脚本。如果系统缺少 `curl`，先执行 `sudo apt install curl`。
 
 ```bash
-read -r -p '请输入新版发布标签：' release_tag &&
+read -r -p 'pi5-cpu-overclock' release_tag &&
   [ -n "$release_tag" ] &&
   mkdir -p ~/pi5-cpu-overclock &&
   cd ~/pi5-cpu-overclock &&
